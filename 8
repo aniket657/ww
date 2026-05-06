@@ -1,0 +1,34 @@
+8.	Implement the C program for Page Replacement Algorithms: FCFS for frame size as minimum three.
+
+
+#include<stdio.h>
+
+int main(){
+    int p[20],f[3]={-1,-1,-1},n,i,j,k=0,pf=0,x;
+
+    printf("Enter no. of pages: ");
+    scanf("%d",&n);
+
+    printf("Enter pages: ");
+    for(i=0;i<n;i++)
+        scanf("%d",&p[i]);
+
+    for(i=0;i<n;i++){
+        x=0;
+
+        for(j=0;j<3;j++)
+            if(f[j]==p[i]) x=1;
+
+        if(!x){
+            f[k]=p[i];
+            k=(k+1)%3;
+            pf++;
+        }
+
+        printf("\n%d\t%d\t%d",f[0],f[1],f[2]);
+    }
+
+    printf("\n\nPage Faults = %d",pf);
+
+    return 0;
+}
