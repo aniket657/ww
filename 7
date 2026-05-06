@@ -1,0 +1,53 @@
+7.	Implement the C program for Deadlock Avoidance Algorithm: Bankers Algorithm.
+
+
+#include<stdio.h>
+
+int main(){
+    int a[10][10],m[10][10],n[10][10],av[10];
+    int f[10]={0},s[10],p,r,i,j,k,c=0;
+
+    printf("Enter process & resources: ");
+    scanf("%d%d",&p,&r);
+
+    printf("Allocation:\n");
+    for(i=0;i<p;i++)
+        for(j=0;j<r;j++)
+            scanf("%d",&a[i][j]);
+
+    printf("Max:\n");
+    for(i=0;i<p;i++)
+        for(j=0;j<r;j++){
+            scanf("%d",&m[i][j]);
+            n[i][j]=m[i][j]-a[i][j];
+        }
+
+    printf("Available: ");
+    for(i=0;i<r;i++)
+        scanf("%d",&av[i]);
+
+    for(k=0;k<p;k++)
+        for(i=0;i<p;i++)
+            if(!f[i]){
+                for(j=0;j<r;j++)
+                    if(n[i][j]>av[j]) break;
+
+                if(j==r){
+                    s[c++]=i;
+                    f[i]=1;
+
+                    for(j=0;j<r;j++)
+                        av[j]+=a[i][j];
+                }
+            }
+
+    if(c==p){
+        printf("\nSafe Sequence: ");
+        for(i=0;i<p;i++)
+            printf("P%d ",s[i]);
+    }
+    else
+        printf("\nDeadlock");
+
+    return 0;
+}
